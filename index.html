@@ -1,125 +1,661 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MIFAARU | Born in the Reefs</title>
+    <title>MIFAARU | BORN IN THE REEFS</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        abyss: '#020813',
+                        abyssCard: '#061326',
+                        electricCyan: '#00f3ff',
+                        biolumAqua: '#00ffd2',
+                        coralNeon: '#ff0055',
+                    },
+                    fontFamily: {
+                        sans: ['Helvetica Neue', 'Arial', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
     <style>
         * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
             font-family: 'Helvetica Neue', Arial, sans-serif;
         }
 
         body {
-            background-color: #030a16;
+            background-color: #020813;
             color: #ffffff;
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            align-items: center;
-            text-align: center;
-            padding: 40px 20px;
-            overflow: hidden;
+            overflow-x: hidden;
+        }
+
+        /* --- THEMATIC ANIMATIONS --- */
+
+        /* Pulsing Bioluminescent Neon Glow */
+        @keyframes biolumPulse {
+            0%, 100% {
+                text-shadow: 0 0 15px rgba(0, 243, 255, 0.6), 0 0 30px rgba(0, 243, 255, 0.3);
+                filter: brightness(1);
+            }
+            50% {
+                text-shadow: 0 0 25px rgba(0, 255, 210, 0.9), 0 0 50px rgba(0, 243, 255, 0.6);
+                filter: brightness(1.25);
+            }
+        }
+
+        .animate-biolum-pulse {
+            animation: biolumPulse 4s infinite ease-in-out;
+        }
+
+        /* Animated Glowing Border Gradient */
+        @keyframes borderGlow {
+            0% { border-color: rgba(0, 243, 255, 0.2); box-shadow: 0 0 10px rgba(0, 243, 255, 0.1); }
+            50% { border-color: rgba(0, 255, 210, 0.6); box-shadow: 0 0 25px rgba(0, 255, 210, 0.3); }
+            100% { border-color: rgba(0, 243, 255, 0.2); box-shadow: 0 0 10px rgba(0, 243, 255, 0.1); }
+        }
+
+        .animate-glow-card {
+            animation: borderGlow 5s infinite ease-in-out;
+        }
+
+        /* Floating Movement Animation */
+        @keyframes floatUp {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-12px) rotate(0.5deg); }
+        }
+
+        .animate-float {
+            animation: floatUp 6s infinite ease-in-out;
+        }
+
+        /* Subtle Wave Shimmer Background */
+        @keyframes waveGlow {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .animate-wave-bg {
+            background: linear-gradient(135deg, rgba(2,8,19,1) 0%, rgba(6,19,38,0.9) 50%, rgba(0,35,50,0.8) 100%);
+            background-size: 200% 200%;
+            animation: waveGlow 12s ease infinite;
+        }
+
+        /* Glassmorphism Styles */
+        .glass-card {
+            background: rgba(6, 19, 38, 0.65);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(0, 243, 255, 0.18);
+        }
+
+        .glass-card-hover {
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .glass-card-hover:hover {
+            transform: translateY(-8px) scale(1.01);
+            border-color: #00f3ff;
+            box-shadow: 0 15px 35px -10px rgba(0, 243, 255, 0.4);
+        }
+
+        .neon-button {
             position: relative;
-        }
-
-        body::before {
-            content: '';
-            position: absolute;
-            top: 20%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 300px;
-            height: 300px;
-            background: radial-gradient(circle, rgba(0, 243, 255, 0.15) 0%, rgba(3, 10, 22, 0) 70%);
-            z-index: 0;
-            pointer-events: none;
-        }
-
-        .header {
-            z-index: 1;
-            letter-spacing: 4px;
-            font-size: 14px;
-            color: #00f3ff;
-            text-transform: uppercase;
-            font-weight: 600;
-        }
-
-        .main-content {
-            z-index: 1;
-            max-width: 600px;
-        }
-
-        h1 {
-            font-size: 3.5rem;
-            font-weight: 900;
-            letter-spacing: 8px;
-            margin-bottom: 10px;
-            text-transform: uppercase;
-            text-shadow: 0 0 20px rgba(0, 243, 255, 0.3);
-        }
-
-        p.tagline {
-            font-size: 1.1rem;
-            letter-spacing: 3px;
-            color: #8a99ad;
-            text-transform: uppercase;
-            margin-bottom: 30px;
-        }
-
-        p.description {
-            font-size: 0.95rem;
-            line-height: 1.6;
-            color: #d1d5db;
-            margin-bottom: 40px;
-            font-weight: 300;
-        }
-
-        .badge {
-            display: inline-block;
-            padding: 8px 20px;
+            background: transparent;
             border: 1px solid #00f3ff;
-            border-radius: 30px;
-            font-size: 12px;
-            letter-spacing: 2px;
             color: #00f3ff;
-            text-transform: uppercase;
-            box-shadow: 0 0 10px rgba(0, 243, 255, 0.2);
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            overflow: hidden;
         }
 
-        .footer {
-            z-index: 1;
-            font-size: 12px;
-            color: #526071;
-            letter-spacing: 1px;
+        .neon-button:hover {
+            background: #00f3ff;
+            color: #020813;
+            box-shadow: 0 0 30px rgba(0, 243, 255, 0.85);
+            transform: translateY(-2px);
         }
 
-        @media (max-width: 600px) {
-            h1 { font-size: 2.2rem; letter-spacing: 5px; }
-            p.tagline { font-size: 0.9rem; letter-spacing: 2px; }
+        /* Background Grid Pattern */
+        .bg-grid-pattern {
+            background-size: 60px 60px;
+            background-image: 
+                linear-gradient(to right, rgba(0, 243, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(0, 243, 255, 0.03) 1px, transparent 1px);
         }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #020813; }
+        ::-webkit-scrollbar-thumb { background: rgba(0, 243, 255, 0.3); border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: #00f3ff; }
     </style>
 </head>
-<body>
+<body class="relative min-h-screen bg-grid-pattern flex flex-col justify-between selection:bg-electricCyan selection:text-abyss">
 
-    <div class="header">MIFAARU</div>
+    <!-- Ambient Animated Wave Canvas -->
+    <canvas id="oceanCanvas" class="fixed inset-0 pointer-events-none z-0 opacity-60"></canvas>
 
-    <div class="main-content">
-        <h1>MIFAARU</h1>
-        <p class="tagline">B O R N &nbsp; I N &nbsp; T H E &nbsp; R E E F S</p>
-        <p class="description">
-            Ocean Heritage meets High-End Streetwear.<br>
-            Crafted for those who belong to the ocean.
+    <!-- Top Announcement Bar -->
+    <div class="bg-abyssCard border-b border-electricCyan/20 text-center py-2 px-4 text-xs font-semibold tracking-widest text-electricCyan z-50 relative flex justify-between items-center">
+        <div class="hidden sm:block text-gray-400">MIFAARU // OCEAN HERITAGE & LIFESTYLE</div>
+        <div class="mx-auto sm:mx-0 flex items-center space-x-2">
+            <span class="inline-block w-2 h-2 rounded-full bg-electricCyan animate-ping"></span>
+            <span>WORLDWIDE EXPRESS SHIPPING AVAILABLE</span>
+        </div>
+        <!-- Currency Selector -->
+        <div class="flex items-center space-x-2">
+            <span class="text-gray-400 hidden md:inline">CURRENCY:</span>
+            <select id="currencySelect" onchange="changeCurrency(this.value)" class="bg-abyss border border-electricCyan/30 text-electricCyan text-xs rounded px-2 py-0.5 focus:outline-none">
+                <option value="USD">USD ($)</option>
+                <option value="MVR">MVR (Rf)</option>
+                <option value="EUR">EUR (€)</option>
+                <option value="LKR">LKR (Rs)</option>
+            </select>
+        </div>
+    </div>
+
+    <!-- Navigation Header -->
+    <nav class="sticky top-0 z-40 bg-abyss/85 backdrop-blur-xl border-b border-electricCyan/20 px-6 py-4 transition-all">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <a href="#" class="flex items-center space-x-3 group">
+                <span class="text-2xl font-black tracking-widest text-white uppercase animate-biolum-pulse">
+                    MIFAARU
+                </span>
+            </a>
+
+            <!-- Navigation Links -->
+            <div class="hidden md:flex space-x-8 text-xs font-bold tracking-widest uppercase text-gray-300">
+                <a href="#store" class="hover:text-electricCyan transition-colors">Collection</a>
+                <a href="#customizer" class="hover:text-electricCyan transition-colors flex items-center space-x-1">
+                    <span>Custom Tees</span>
+                    <span class="bg-electricCyan/20 text-electricCyan text-[9px] px-1.5 py-0.5 rounded border border-electricCyan/40">STUDIO</span>
+                </a>
+                <a href="#about" class="hover:text-electricCyan transition-colors">Heritage</a>
+            </div>
+
+            <!-- Cart Trigger -->
+            <button onclick="toggleCartDrawer()" class="relative neon-button px-4 py-2 rounded-lg flex items-center space-x-2">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 11h14l1 12H4L5 11z"/></svg>
+                <span class="text-xs font-bold uppercase">Cart</span>
+                <span id="cartCount" class="font-bold text-xs bg-electricCyan text-abyss px-2 py-0.5 rounded-full ml-1">0</span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <section class="relative min-h-[80vh] flex items-center justify-center text-center px-6 py-20 z-10">
+        <div class="max-w-4xl mx-auto flex flex-col items-center">
+            
+            <div class="inline-block px-4 py-1.5 rounded-full border border-electricCyan/40 bg-electricCyan/10 text-electricCyan text-xs font-bold tracking-widest uppercase mb-6 animate-pulse">
+                LIMITED APPAREL COLLECTION
+            </div>
+
+            <h1 class="text-6xl md:text-9xl font-black tracking-widest uppercase text-white mb-4 leading-none animate-float">
+                MIFAARU
+            </h1>
+
+            <p class="text-electricCyan text-lg md:text-2xl font-bold tracking-widest uppercase mb-6 animate-biolum-pulse">
+                B O R N &nbsp; I N &nbsp; T H E &nbsp; R E E F S
+            </p>
+
+            <p class="text-gray-300 text-sm md:text-base max-w-xl font-normal tracking-wide mb-10 leading-relaxed">
+                Ocean Heritage Meets High-End Streetwear.<br>
+                Crafted for those who belong to the ocean.
+            </p>
+
+            <div class="flex flex-col sm:flex-row gap-5 w-full sm:w-auto">
+                <a href="#store" class="neon-button px-10 py-4 rounded-full font-bold tracking-widest text-sm uppercase text-center">
+                    EXPLORE COLLECTION
+                </a>
+                <a href="#customizer" class="glass-card glass-card-hover px-10 py-4 rounded-full font-bold tracking-widest text-sm text-electricCyan uppercase text-center border border-electricCyan/40">
+                    CUSTOM T-SHIRT STUDIO
+                </a>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- PRODUCTS CATALOG SECTION -->
+    <section id="store" class="py-20 px-6 max-w-7xl mx-auto w-full z-10 relative">
+        <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 border-b border-electricCyan/20 pb-6">
+            <div>
+                <span class="text-electricCyan text-xs font-bold tracking-widest uppercase">LATEST DROP</span>
+                <h2 class="text-3xl md:text-4xl font-black uppercase tracking-wider text-white mt-1">FEATURED COLLECTION</h2>
+            </div>
+
+            <!-- Category Filters -->
+            <div class="flex flex-wrap gap-2 mt-6 md:mt-0 text-xs font-bold">
+                <button onclick="filterProducts('all')" class="filter-btn active px-4 py-2 rounded-full border border-electricCyan text-electricCyan bg-electricCyan/10">ALL</button>
+                <button onclick="filterProducts('tees')" class="filter-btn px-4 py-2 rounded-full border border-electricCyan/20 text-gray-400 hover:border-electricCyan">T-SHIRTS</button>
+                <button onclick="filterProducts('hoodies')" class="filter-btn px-4 py-2 rounded-full border border-electricCyan/20 text-gray-400 hover:border-electricCyan">HOODIES</button>
+                <button onclick="filterProducts('accessories')" class="filter-btn px-4 py-2 rounded-full border border-electricCyan/20 text-gray-400 hover:border-electricCyan">CAPS & ACCESSORIES</button>
+            </div>
+        </div>
+
+        <!-- Product Grid -->
+        <div id="productGrid" class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <!-- Rendered dynamically -->
+        </div>
+    </section>
+
+    <!-- INTERACTIVE T-SHIRT CUSTOMIZER STUDIO -->
+    <section id="customizer" class="py-20 px-6 max-w-7xl mx-auto w-full z-10 relative">
+        <div class="glass-card animate-glow-card rounded-3xl p-8 md:p-12 border border-electricCyan/30">
+            <div class="text-center mb-10">
+                <span class="text-electricCyan text-xs font-bold tracking-widest uppercase bg-electricCyan/10 px-3 py-1 rounded-full border border-electricCyan/30">STUDIO</span>
+                <h2 class="text-3xl md:text-5xl font-black tracking-wider uppercase text-white mt-3">CUSTOM T-SHIRT STUDIO</h2>
+                <p class="text-gray-400 text-xs md:text-sm max-w-xl mx-auto mt-2">Design your personalized MIFAARU garment with live bioluminescent preview</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+                
+                <!-- Live Preview Viewport -->
+                <div class="lg:col-span-7 bg-abyss border border-electricCyan/30 rounded-2xl p-8 flex flex-col items-center justify-center min-h-[420px] relative overflow-hidden">
+                    
+                    <div class="absolute top-4 left-4 text-xs font-bold text-electricCyan flex items-center space-x-2 z-10">
+                        <span class="w-2 h-2 rounded-full bg-electricCyan animate-ping"></span>
+                        <span>LIVE DESIGN PREVIEW</span>
+                    </div>
+
+                    <!-- T-Shirt Graphic Canvas -->
+                    <div class="relative w-72 h-72 md:w-80 md:h-80 flex items-center justify-center animate-float">
+                        <!-- T-Shirt SVG -->
+                        <svg id="customShirtSvg" class="w-full h-full text-abyssCard transition-colors duration-500 drop-shadow-[0_0_20px_rgba(0,243,255,0.3)]" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M20.38 3.46L16 2a4 4 0 01-8 0L3.62 3.46a2 2 0 00-1.34 2.23l.58 3.47a1 1 0 00.99.84H6v10a2 2 0 002 2h8a2 2 0 002-2V10h2.15a1 1 0 00.99-.84l.58-3.47a2 2 0 00-1.34-2.23z"/>
+                        </svg>
+
+                        <!-- Custom Dynamic Text Overlay -->
+                        <div id="customTextContainer" class="absolute inset-0 flex items-center justify-center p-12 text-center pointer-events-none">
+                            <span id="customTextDisplay" class="font-extrabold uppercase tracking-widest text-base md:text-xl break-words max-w-[160px] transition-all duration-300">
+                                BORN IN THE REEFS
+                            </span>
+                        </div>
+                    </div>
+
+                    <!-- Live Specs -->
+                    <div class="mt-6 flex flex-wrap gap-2 justify-center text-xs font-semibold z-10">
+                        <span id="specColor" class="bg-electricCyan/10 border border-electricCyan/30 text-electricCyan px-3 py-1 rounded-full">GARMENT: ABYSS NAVY</span>
+                        <span id="specTextColor" class="bg-electricCyan/10 border border-electricCyan/30 text-electricCyan px-3 py-1 rounded-full">PRINT: ELECTRIC CYAN</span>
+                    </div>
+                </div>
+
+                <!-- Studio Controls -->
+                <div class="lg:col-span-5 space-y-6 text-xs font-semibold">
+                    
+                    <!-- Garment Color -->
+                    <div>
+                        <label class="block text-gray-300 mb-2 uppercase font-bold">1. Select Garment Color</label>
+                        <div class="grid grid-cols-4 gap-2">
+                            <button onclick="setGarmentColor('#061326', 'ABYSS NAVY')" class="p-3 rounded-lg border border-electricCyan/40 bg-[#061326] text-center hover:scale-105 transition-transform">Navy</button>
+                            <button onclick="setGarmentColor('#022c3a', 'DEEP CYAN')" class="p-3 rounded-lg border border-electricCyan/20 bg-[#022c3a] text-center hover:scale-105 transition-transform">Cyan</button>
+                            <button onclick="setGarmentColor('#3d021a', 'CORAL NEON')" class="p-3 rounded-lg border border-electricCyan/20 bg-[#3d021a] text-center hover:scale-105 transition-transform">Coral</button>
+                            <button onclick="setGarmentColor('#e2e8f0', 'PEARL WHITE')" class="p-3 rounded-lg border border-electricCyan/20 bg-[#e2e8f0] text-gray-900 text-center hover:scale-105 transition-transform">White</button>
+                        </div>
+                    </div>
+
+                    <!-- Print Text Color -->
+                    <div>
+                        <label class="block text-gray-300 mb-2 uppercase font-bold">2. Select Print Text Color</label>
+                        <div class="grid grid-cols-4 gap-2">
+                            <button onclick="setPrintColor('#00f3ff', 'ELECTRIC CYAN')" class="p-2.5 rounded-lg border border-electricCyan/40 bg-abyss text-electricCyan text-center hover:scale-105 transition-transform">Neon Cyan</button>
+                            <button onclick="setPrintColor('#ffffff', 'PURE WHITE')" class="p-2.5 rounded-lg border border-electricCyan/20 bg-abyss text-white text-center hover:scale-105 transition-transform">White</button>
+                            <button onclick="setPrintColor('#ff0055', 'NEON CORAL')" class="p-2.5 rounded-lg border border-electricCyan/20 bg-abyss text-coralNeon text-center hover:scale-105 transition-transform">Coral</button>
+                            <button onclick="setPrintColor('#00ffd2', 'BIOLUM AQUA')" class="p-2.5 rounded-lg border border-electricCyan/20 bg-abyss text-biolumAqua text-center hover:scale-105 transition-transform">Aqua</button>
+                        </div>
+                    </div>
+
+                    <!-- Custom Text Input -->
+                    <div>
+                        <label class="block text-gray-300 mb-2 uppercase font-bold">3. Custom Print Text</label>
+                        <input type="text" id="customInputText" value="BORN IN THE REEFS" maxlength="26" oninput="updateCustomizer()" class="w-full bg-abyss border border-electricCyan/30 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-electricCyan">
+                    </div>
+
+                    <!-- Text Size -->
+                    <div>
+                        <label class="block text-gray-300 mb-2 uppercase font-bold">4. Print Text Size</label>
+                        <select id="textSizeSelect" onchange="updateCustomizer()" class="w-full bg-abyss border border-electricCyan/30 rounded-xl px-3 py-3 text-electricCyan focus:outline-none">
+                            <option value="14px">Small (14px)</option>
+                            <option value="18px" selected>Medium (18px)</option>
+                            <option value="24px">Large (24px)</option>
+                        </select>
+                    </div>
+
+                    <!-- Submit Custom Request -->
+                    <button onclick="submitCustomOrderWhatsApp()" class="w-full neon-button py-4 rounded-xl font-bold tracking-widest text-xs uppercase flex items-center justify-center space-x-2">
+                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981z"/></svg>
+                        <span>REQUEST CUSTOM DESIGN VIA WHATSAPP</span>
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- BRAND HERITAGE SECTION -->
+    <section id="about" class="py-20 px-6 max-w-5xl mx-auto text-center z-10 relative">
+        <span class="text-electricCyan text-xs font-bold tracking-widest uppercase">OUR STORY</span>
+        <h2 class="text-3xl md:text-5xl font-black uppercase tracking-wider text-white mt-2 mb-6">OCEAN HERITAGE & LIFESTYLE</h2>
+        <p class="text-gray-300 text-sm md:text-base leading-relaxed max-w-2xl mx-auto">
+            MIFAARU represents the deep ocean spirit. Born in the reefs, our collection blends premium streetwear aesthetics with high-durability fabrics designed for ocean lovers and lifestyle purists worldwide.
         </p>
-        <div class="badge">LAUNCHING SOON</div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-abyss border-t border-electricCyan/20 py-12 px-6 relative z-10 text-xs text-gray-400">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center text-center md:text-left gap-6">
+            <div>
+                <span class="text-xl font-black tracking-widest text-white uppercase animate-biolum-pulse">MIFAARU</span>
+                <p class="mt-2 text-gray-400">BORN IN THE REEFS &copy; 2026. All Rights Reserved.</p>
+            </div>
+            <div class="flex space-x-6 text-gray-300 font-bold uppercase">
+                <a href="#store" class="hover:text-electricCyan">Collection</a>
+                <a href="#customizer" class="hover:text-electricCyan">Custom Tees</a>
+                <a href="https://wa.me/" target="_blank" class="hover:text-electricCyan">WhatsApp Contact</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- SHOPPING CART DRAWER (SLIDE-OVER) -->
+    <div id="cartDrawer" class="fixed inset-0 z-50 overflow-hidden pointer-events-none transition-opacity duration-300 opacity-0">
+        <div onclick="toggleCartDrawer()" class="absolute inset-0 bg-black/70 backdrop-blur-sm"></div>
+        <div class="absolute inset-y-0 right-0 max-w-full flex pl-10">
+            <div class="w-screen max-w-md bg-abyss border-l border-electricCyan/30 p-6 flex flex-col justify-between pointer-events-auto">
+                <div>
+                    <div class="flex items-center justify-between pb-4 border-b border-electricCyan/20">
+                        <h3 class="text-lg font-bold text-electricCyan uppercase">Your Shopping Cart (<span id="cartDrawerCount">0</span>)</h3>
+                        <button onclick="toggleCartDrawer()" class="text-gray-400 hover:text-white text-xl">✕</button>
+                    </div>
+
+                    <!-- Cart Items Container -->
+                    <div id="cartItemsList" class="mt-6 space-y-4 max-h-[55vh] overflow-y-auto pr-2">
+                        <!-- Populated dynamically -->
+                    </div>
+                </div>
+
+                <!-- Cart Summary & Checkout -->
+                <div class="border-t border-electricCyan/20 pt-4 space-y-4 text-xs font-semibold">
+                    <div class="flex justify-between text-gray-300">
+                        <span>SUBTOTAL:</span>
+                        <span id="cartSubtotal" class="text-electricCyan font-bold text-sm">$0.00</span>
+                    </div>
+
+                    <button onclick="checkoutWhatsApp()" class="w-full neon-button py-4 rounded-xl font-bold uppercase flex items-center justify-center space-x-2">
+                        <span>CHECKOUT VIA WHATSAPP</span>
+                    </button>
+                </div>
+            </div>
+        </div>
     </div>
 
-    <div class="footer">
-        &copy; 2026 MIFAARU. All Rights Reserved.
-    </div>
+    <!-- JAVASCRIPT & ANIMATION ENGINE -->
+    <script>
+        // --- Products Catalog ---
+        const products = [
+            {
+                id: 1,
+                name: "Reef Graphic Oversized Tee",
+                category: "tees",
+                priceUSD: 35.00,
+                tag: "HEAVYWEIGHT COTTON",
+                imageSvg: `<svg class="w-28 h-28 text-electricCyan animate-float" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M20.38 3.46L16 2a4 4 0 01-8 0L3.62 3.46a2 2 0 00-1.34 2.23l.58 3.47a1 1 0 00.99.84H6v10a2 2 0 002 2h8a2 2 0 002-2V10h2.15a1 1 0 00.99-.84l.58-3.47a2 2 0 00-1.34-2.23z"/></svg>`
+            },
+            {
+                id: 2,
+                name: "Abyssal Heavyweight Hoodie",
+                category: "hoodies",
+                priceUSD: 68.00,
+                tag: "PREMIUM FLEECE",
+                imageSvg: `<svg class="w-28 h-28 text-biolumAqua animate-float" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M4 10l2-4 6-2 6 2 2 4v10a2 2 0 01-2 2H6a2 2 0 01-2-2V10z"/><path d="M9 22V12h6v10"/></svg>`
+            },
+            {
+                id: 3,
+                name: "Oceanic Heritage Snapback",
+                category: "accessories",
+                priceUSD: 28.00,
+                tag: "3D EMBROIDERED",
+                imageSvg: `<svg class="w-28 h-28 text-electricCyan animate-float" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M2 14c0-3.87 3.13-7 7-7h6c3.87 0 7 3.13 7 7v2H2v-2z"/><path d="M2 16h20v2H2z"/></svg>`
+            }
+        ];
 
+        // --- State Management ---
+        let currentCurrency = 'USD';
+        const currencyRates = { USD: 1, MVR: 15.42, EUR: 0.92, LKR: 298.50 };
+        const currencySymbols = { USD: '$', MVR: 'Rf ', EUR: '€', LKR: 'Rs ' };
+        let cart = [];
+        let selectedGarmentColor = 'ABYSS NAVY';
+        let selectedPrintColor = 'ELECTRIC CYAN';
+
+        // Initialize App
+        window.onload = function() {
+            renderProducts(products);
+            initOceanWaveCanvas();
+            updateCustomizer();
+        };
+
+        // --- Render Products ---
+        function renderProducts(items) {
+            const grid = document.getElementById('productGrid');
+            grid.innerHTML = items.map(p => {
+                const convertedPrice = (p.priceUSD * currencyRates[currentCurrency]).toFixed(2);
+                return `
+                    <div class="glass-card glass-card-hover p-6 rounded-2xl flex flex-col justify-between">
+                        <div>
+                            <div class="w-full h-64 bg-abyss rounded-xl border border-electricCyan/15 flex items-center justify-center mb-6 relative overflow-hidden group">
+                                ${p.imageSvg}
+                                <span class="absolute top-3 right-3 text-[9px] font-bold tracking-widest text-electricCyan bg-abyss/80 px-2 py-1 rounded border border-electricCyan/30">${p.tag}</span>
+                            </div>
+                            <h3 class="text-lg font-bold uppercase tracking-wider text-white mb-2">${p.name}</h3>
+                            <div class="text-electricCyan font-bold text-lg mb-4">${currencySymbols[currentCurrency]}${convertedPrice}</div>
+                        </div>
+
+                        <div class="space-y-3 pt-4 border-t border-gray-800">
+                            <!-- Size Selector -->
+                            <div class="flex items-center justify-between text-xs font-semibold">
+                                <span class="text-gray-400">SELECT SIZE:</span>
+                                <select id="size-${p.id}" class="bg-abyss border border-electricCyan/30 text-electricCyan rounded px-2 py-1 text-xs focus:outline-none">
+                                    <option value="S">S</option>
+                                    <option value="M" selected>M</option>
+                                    <option value="L">L</option>
+                                    <option value="XL">XL</option>
+                                </select>
+                            </div>
+
+                            <button onclick="addToCart(${p.id})" class="w-full neon-button py-2.5 rounded-lg text-xs font-bold uppercase">
+                                + ADD TO CART
+                            </button>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function filterProducts(cat) {
+            document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active', 'border-electricCyan', 'text-electricCyan', 'bg-electricCyan/10'));
+            if (cat === 'all') renderProducts(products);
+            else renderProducts(products.filter(p => p.category === cat));
+        }
+
+        // --- Currency Converter ---
+        function changeCurrency(curr) {
+            currentCurrency = curr;
+            renderProducts(products);
+            updateCartDrawer();
+        }
+
+        // --- Shopping Cart Logic ---
+        function addToCart(productId) {
+            const product = products.find(p => p.id === productId);
+            const sizeSelect = document.getElementById(`size-${productId}`);
+            const selectedSize = sizeSelect ? sizeSelect.value : 'M';
+
+            cart.push({ ...product, size: selectedSize });
+            updateCartDrawer();
+            toggleCartDrawer(true);
+        }
+
+        function updateCartDrawer() {
+            document.getElementById('cartCount').innerText = cart.length;
+            document.getElementById('cartDrawerCount').innerText = cart.length;
+
+            const list = document.getElementById('cartItemsList');
+            if (cart.length === 0) {
+                list.innerHTML = `<p class="text-xs font-semibold text-gray-500 text-center py-8">YOUR SHOPPING CART IS EMPTY.</p>`;
+            } else {
+                list.innerHTML = cart.map((item, idx) => {
+                    const price = (item.priceUSD * currencyRates[currentCurrency]).toFixed(2);
+                    return `
+                        <div class="flex justify-between items-center bg-abyssCard p-3 rounded-xl border border-electricCyan/20 text-xs font-semibold">
+                            <div>
+                                <div class="font-bold text-white uppercase">${item.name}</div>
+                                <div class="text-gray-400">SIZE: ${item.size}</div>
+                                <div class="text-electricCyan">${currencySymbols[currentCurrency]}${price}</div>
+                            </div>
+                            <button onclick="removeFromCart(${idx})" class="text-coralNeon hover:underline">REMOVE</button>
+                        </div>
+                    `;
+                }).join('');
+            }
+
+            const totalUSD = cart.reduce((sum, item) => sum + item.priceUSD, 0);
+            const totalConverted = (totalUSD * currencyRates[currentCurrency]).toFixed(2);
+            document.getElementById('cartSubtotal').innerText = `${currencySymbols[currentCurrency]}${totalConverted}`;
+        }
+
+        function removeFromCart(index) {
+            cart.splice(index, 1);
+            updateCartDrawer();
+        }
+
+        function toggleCartDrawer(openOnly = false) {
+            const drawer = document.getElementById('cartDrawer');
+            if (openOnly) {
+                drawer.classList.remove('pointer-events-none', 'opacity-0');
+            } else {
+                drawer.classList.toggle('pointer-events-none');
+                drawer.classList.toggle('opacity-0');
+            }
+        }
+
+        function checkoutWhatsApp() {
+            if (cart.length === 0) {
+                alert("Your cart is empty!");
+                return;
+            }
+            const itemDetails = cart.map(i => `${i.name} (Size: ${i.size})`).join(', ');
+            const message = encodeURIComponent(`Hi MIFAARU, I want to place an order:\n\nItems: ${itemDetails}\nCurrency: ${currentCurrency}\nTotal: ${document.getElementById('cartSubtotal').innerText}`);
+            window.open(`https://wa.me/?text=${message}`, '_blank');
+        }
+
+        // --- T-Shirt Customizer Studio ---
+        function setGarmentColor(colorHex, colorLabel) {
+            document.getElementById('customShirtSvg').style.color = colorHex;
+            selectedGarmentColor = colorLabel;
+            document.getElementById('specColor').innerText = `GARMENT: ${colorLabel}`;
+        }
+
+        function setPrintColor(colorHex, colorLabel) {
+            const display = document.getElementById('customTextDisplay');
+            display.style.color = colorHex;
+            selectedPrintColor = colorLabel;
+            document.getElementById('specTextColor').innerText = `PRINT: ${colorLabel}`;
+        }
+
+        function updateCustomizer() {
+            const text = document.getElementById('customInputText').value;
+            const size = document.getElementById('textSizeSelect').value;
+            const display = document.getElementById('customTextDisplay');
+
+            display.innerText = text || "BORN IN THE REEFS";
+            display.style.fontSize = size;
+        }
+
+        function submitCustomOrderWhatsApp() {
+            const text = document.getElementById('customInputText').value;
+            const size = document.getElementById('textSizeSelect').value;
+            const message = encodeURIComponent(`Hi MIFAARU, I want to place a Custom T-Shirt design request:\n\n- Custom Print Text: "${text}"\n- Garment Color: ${selectedGarmentColor}\n- Print Text Color: ${selectedPrintColor}\n- Print Size: ${size}\n\nPlease confirm order details.`);
+            window.open(`https://wa.me/?text=${message}`, '_blank');
+        }
+
+        // --- ANIMATED OCEAN WAVE & BIOLUMINESCENT PARTICLE ENGINE ---
+        function initOceanWaveCanvas() {
+            const canvas = document.getElementById('oceanCanvas');
+            const ctx = canvas.getContext('2d');
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+
+            let step = 0;
+
+            // Bioluminescent Light Particles
+            const particles = Array.from({ length: 45 }, () => ({
+                x: Math.random() * canvas.width,
+                y: Math.random() * canvas.height,
+                radius: Math.random() * 2.5 + 0.5,
+                speedY: -Math.random() * 0.4 - 0.1,
+                speedX: Math.sin(Math.random() * Math.PI) * 0.2,
+                alpha: Math.random() * 0.6 + 0.2
+            }));
+
+            function animate() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                step += 0.015;
+
+                // Render Animated Glowing Deep-Sea Waves
+                ctx.save();
+                ctx.lineWidth = 1.5;
+                
+                for (let i = 0; i < 3; i++) {
+                    ctx.beginPath();
+                    const gradient = ctx.createLinearGradient(0, 0, canvas.width, 0);
+                    gradient.addColorStop(0, 'rgba(0, 243, 255, 0.05)');
+                    gradient.addColorStop(0.5, 'rgba(0, 255, 210, 0.15)');
+                    gradient.addColorStop(1, 'rgba(0, 243, 255, 0.05)');
+                    
+                    ctx.strokeStyle = gradient;
+
+                    for (let x = 0; x < canvas.width; x += 10) {
+                        const y = Math.sin(x * 0.003 + step + i) * 25 + Math.cos(x * 0.001 + step) * 15 + (canvas.height * 0.4 + i * 80);
+                        if (x === 0) ctx.moveTo(x, y);
+                        else ctx.lineTo(x, y);
+                    }
+                    ctx.stroke();
+                }
+                ctx.restore();
+
+                // Render Floating Bioluminescent Particles
+                particles.forEach(p => {
+                    p.y += p.speedY;
+                    p.x += Math.sin(step) * 0.3;
+
+                    if (p.y < 0) {
+                        p.y = canvas.height;
+                        p.x = Math.random() * canvas.width;
+                    }
+
+                    ctx.beginPath();
+                    ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+                    ctx.fillStyle = `rgba(0, 243, 255, ${p.alpha})`;
+                    ctx.shadowBlur = 10;
+                    ctx.shadowColor = '#00f3ff';
+                    ctx.fill();
+                });
+
+                requestAnimationFrame(animate);
+            }
+
+            animate();
+
+            window.addEventListener('resize', () => {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+            });
+        }
+    </script>
 </body>
 </html>
