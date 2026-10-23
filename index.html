@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MIFAARU | Born in the Reefs</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+        }
+
+        body {
+            background-color: #030a16;
+            color: #ffffff;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            text-align: center;
+            padding: 40px 20px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: absolute;
+            top: 20%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(0, 243, 255, 0.15) 0%, rgba(3, 10, 22, 0) 70%);
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .header {
+            z-index: 1;
+            letter-spacing: 4px;
+            font-size: 14px;
+            color: #00f3ff;
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+
+        .main-content {
+            z-index: 1;
+            max-width: 600px;
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            font-weight: 900;
+            letter-spacing: 8px;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            text-shadow: 0 0 20px rgba(0, 243, 255, 0.3);
+        }
+
+        p.tagline {
+            font-size: 1.1rem;
+            letter-spacing: 3px;
+            color: #8a99ad;
+            text-transform: uppercase;
+            margin-bottom: 30px;
+        }
+
+        p.description {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: #d1d5db;
+            margin-bottom: 40px;
+            font-weight: 300;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 8px 20px;
+            border: 1px solid #00f3ff;
+            border-radius: 30px;
+            font-size: 12px;
+            letter-spacing: 2px;
+            color: #00f3ff;
+            text-transform: uppercase;
+            box-shadow: 0 0 10px rgba(0, 243, 255, 0.2);
+        }
+
+        .footer {
+            z-index: 1;
+            font-size: 12px;
+            color: #526071;
+            letter-spacing: 1px;
+        }
+
+        @media (max-width: 600px) {
+            h1 { font-size: 2.2rem; letter-spacing: 5px; }
+            p.tagline { font-size: 0.9rem; letter-spacing: 2px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">MIFAARU</div>
+
+    <div class="main-content">
+        <h1>MIFAARU</h1>
+        <p class="tagline">B O R N &nbsp; I N &nbsp; T H E &nbsp; R E E F S</p>
+        <p class="description">
+            Ocean Heritage meets High-End Streetwear.<br>
+            Crafted for those who belong to the ocean.
+        </p>
+        <div class="badge">LAUNCHING SOON</div>
+    </div>
+
+    <div class="footer">
+        &copy; 2026 MIFAARU. All Rights Reserved.
+    </div>
+
+</body>
+</html>
